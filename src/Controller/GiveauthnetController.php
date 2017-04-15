@@ -74,7 +74,9 @@ class GiveauthnetController extends ControllerBase {
     $setting2->setSettingValue("{\"show\": false}");
     $setting3 = new AnetAPI\SettingType();
     $setting3->setSettingName("hostedPaymentReturnOptions");
-    $setting3->setSettingValue("{\"url\": \"https://mysite.com/receipt\", \"cancelUrl\": \"https://mysite.com/cancel\", \"showReceipt\": true}");
+    $thanks_url = $GLOBALS['base_secure_url'] . 'receipt';
+    $cancel_url = $GLOBALS['base_secure_url'] . 'cancel';
+    $setting3->setSettingValue("{\"url\": \"$thanks_url\", \"cancelUrl\": \"$cancel_url\", \"showReceipt\": true}");
     // Build transaction request
     $request = new AnetAPI\GetHostedPaymentPageRequest();
     $request->setMerchantAuthentication($merchantAuthentication);
