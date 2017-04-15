@@ -1,0 +1,11 @@
+name: Give Authorize.net
+type: module
+description: Gives people a way to donate money via Authorize.
+# core: 8.x
+package: Give Authorize.net
+configure: giveauthnet.settings
+dependencies:
+  - field
+  - entity_reference
+  - views
+
