@@ -1,0 +1,9 @@
+giveauthnet.site_page:
+  path: '/giveauthnet'
+  defaults:
+    _title: 'Give'
+    _controller: '\Drupal\give\Controller\GiveauthnetController::giveauthnetSitePage'
+    give_form: NULL
+  requirements:
+    _permission: 'access give forms'
+
