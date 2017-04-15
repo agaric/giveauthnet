@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Enables the use of donation forms to give money on your site.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Denotes that the donation is not completed.
+ */
+const DONATION_NOT_COMPLETED = 0;
+
+/**
+ * Denotes that the donation is completed.
+ */
+const DONATION_COMPLETED = 1;
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function giveauthnet_entity_extra_field_info() {
+  $fields = array();
+  foreach (array_keys(entity_get_bundles('give_donation')) as $bundle) {
+    $fields['give_donation'][$bundle]['form']['name'] = array(
+      'label' => t('Donor name'),
+      'description' => t('Text'),
+      'weight' => -50,
+    );
+    $fields['give_donation'][$bundle]['form']['mail'] = array(
+      'label' => t('Donor e-mail'),
+      'description' => t('Email'),
+      'weight' => -40,
+    );
+    $fields['give_donation'][$bundle]['form']['recurring'] = array(
+      'label' => t('Recurring donation'),
+      'description' => t('Option'),
+      'weight' => 50,
+    );
+  }
+  return $fields;
+}
+
+/**
+ * Implements hook_mail().
+ */
+function giveauthnet_mail($key, &$message, $params) {
+  $give_donation = $params['give_donation'];
+  /** @var $donor \Drupal\user\UserInterface */
+  $donor = $params['donor'];
+  $language = \Drupal::languageManager()->getLanguage($message['langcode']);
+
+  $variables = array(
+    '@site-name' => \Drupal::config('system.site')->get('name'),
+    '@label' => $give_donation->getLabel(),
+    '@form' => !empty($params['give_form']) ? $params['give_form']->label() : NULL,
+    '@form-url' => \Drupal::url('<current>', [], ['absolute' => TRUE, 'language' => $language]),
+    '@donor-name' => $donor->getDisplayName(),
+  );
+  if ($donor->isAuthenticated()) {
+    $variables['@donor-url'] = $donor->url('canonical', array('absolute' => TRUE, 'language' => $language));
+  }
+  else {
+    $variables['@donor-url'] = $params['donor']->getEmail();
+  }
+
+  switch ($key) {
+    case 'donation_notice':
+      $options = array('langcode' => $language->getId());
+      $message['subject'] .= t('[@form] @label', $variables, $options);
+      $message['body'][] = t("@donor-name (@donor-url) gave a donation through form @form-url.", $variables, $options);
+      $build = entity_view($give_donation, 'mail');
+      $message['body'][] = \Drupal::service('renderer')->renderPlain($build);
+      break;
+
+    case 'donation_receipt':
+      $message['subject'] .= giveauthnet_replace_donation_tokens($params['give_form']->getSubject(), $give_donation);
+
+      $message['body'][] = giveauthnet_replace_donation_tokens($params['give_form']->getReply(), $give_donation);
+      break;
+
+  }
+}
+
+/**
+ * Simple no-dependency token replacement.  More robust would be better.
+ */
+function giveauthnet_replace_donation_tokens($message, \Drupal\give\DonationInterface $donation) {
+  $search_replace = array(
+    '[donor_name]' => $donation->getDonorName(),
+    '[donor_email]' => $donation->getDonorMail(),
+    '[give_label]' => $donation->getGiveForm()->label(),
+    '[dollar_amount]' => $donation->getDollarAmount(),
+    '[recurring]' => $donation->recurring() ? 'recurring ' : '',
+    '[today_date]' => strftime('%B %e, %Y'),
+    '[date]' => strftime('%B %e, %Y', $donation->getUpdatedTime()),
+  );
+  return str_replace(array_keys($search_replace), array_values($search_replace), $message);
+}
+
