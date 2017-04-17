@@ -3,11 +3,8 @@
 namespace Drupal\giveauthnet\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\give\GiveFormInterface;
-use Drupal\give\DonationInterface;
 use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
@@ -56,16 +53,18 @@ class GiveauthnetController extends ControllerBase {
    *   Exception is thrown when user tries to access non existing default
    *   give form.
    */
-  public function giveauthnetSitePage(GiveauthnetFormInterface $give_form = NULL) {
+  public function giveauthnetSitePage($give_form = NULL) {
     $config = $this->config('giveauthnet.settings');
     // Common setup for API credentials
     $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-    $merchantAuthentication->setName($config->get('giveauthnet_login_id'));
-    $merchantAuthentication->setTransactionKey(\SampleCode\Constants::MERCHANT_TRANSACTION_KEY);
+    $merchantAuthentication->setName("");
+    $merchantAuthentication->setTransactionKey("");
+
     //create a transaction
     $transactionRequestType = new AnetAPI\TransactionRequestType();
     $transactionRequestType->setTransactionType("authCaptureTransaction");
     $transactionRequestType->setAmount("30.00");
+
     // Set Hosted Form options
     $setting1 = new AnetAPI\SettingType();
     $setting1->setSettingName("hostedPaymentButtonOptions");
@@ -92,16 +91,20 @@ class GiveauthnetController extends ControllerBase {
 
     if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
     {
-      drupal_set_message($response->getToken(), 'status');
+      $token = $response->getToken();
     }
     else
     {
+      $token = '';
       drupal_set_message("ERROR :  Failed to get hosted payment page token", 'error');
       $errorMessages = $response->getMessages()->getMessage();
       drupal_set_message("RESPONSE : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText(), 'warning');
     }
-    return $response;
 
+    return [
+      '#theme' => 'authnet_link_page',
+      '#authnet_token' => $token,
+    ];
   }
 
 
