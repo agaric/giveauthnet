@@ -6,3 +6,11 @@ giveauthnet.site_page:
   requirements:
     _permission: 'access give forms'
 
+giveauthnet.settings:
+  path: '/admin/config/services/giveauthnet'
+  defaults:
+    _form:  '\Drupal\giveauthnet\Form\GiveauthnetForm\GiveauthnetSettings'
+    _title: 'Authorize.net (donation processing) settings'
+  requirements:
+    _permission: 'administer give'
+
