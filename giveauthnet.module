@@ -107,6 +107,8 @@ function giveauthnet_theme($existing, $type, $theme, $path) {
     'authnet_link_page' => [
       'variables' => ['authnet_token' => NULL]
     ],
+    'authnet_cancel_page' => [],
+    'authnet_thanks_page' => [],
   ];
 }
 
@@ -119,4 +121,20 @@ function giveauthnet_preprocess_authnet_link_page(&$variables) {
   $sandobox_url = "https://test.authorize.net/payment/payment";
   $production_url = "https://accept.authorize.net/payment/payment";
   $variables['authnet_url'] = $config->get('test_enviroment', 0) ? $sandobox_url : $production_url;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function giveauthnet_preprocess_authnet_cancel_page(&$variables) {
+  $config = \Drupal::config('giveauthnet.settings');
+  $variables['cancel_message'] = $config->get('cancel_message', '');
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function giveauthnet_preprocess_authnet_thanks_page(&$variables) {
+  $config = \Drupal::config('giveauthnet.settings');
+  $variables['thanks_message'] = $config->get('thanks_message', '');
 }

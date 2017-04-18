@@ -4,6 +4,7 @@ namespace Drupal\giveauthnet\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use net\authorize\api\contract\v1 as AnetAPI;
@@ -75,9 +76,16 @@ class GiveauthnetController extends ControllerBase {
     $setting2->setSettingValue("{\"show\": false}");
     $setting3 = new AnetAPI\SettingType();
     $setting3->setSettingName("hostedPaymentReturnOptions");
-    $thanks_url = $GLOBALS['base_secure_url'] . 'receipt';
-    $cancel_url = $GLOBALS['base_secure_url'] . 'cancel';
-    $setting3->setSettingValue("{\"url\": \"$thanks_url\", \"cancelUrl\": \"$cancel_url\", \"showReceipt\": true}");
+    $thanks_url = Url::fromRoute('giveauthnet.thanks');
+    $thanks_url->setAbsolute();
+    $cancel_url = Url::fromRoute('giveauthnet.cancel');
+    $cancel_url->setAbsolute();
+    $settings = [
+      'url' => $thanks_url->toString(),
+      'cancelUrl' => $cancel_url->toString(),
+      'showReceipt' => true
+    ];
+    $setting3->setSettingValue(json_encode($settings));
     // Build transaction request
     $request = new AnetAPI\GetHostedPaymentPageRequest();
     $request->setMerchantAuthentication($merchantAuthentication);
@@ -113,6 +121,9 @@ class GiveauthnetController extends ControllerBase {
    */
   public function cancel() {
 
+    return [
+      '#theme' => 'authnet_cancel_page'
+    ];
   }
 
 
@@ -120,7 +131,9 @@ class GiveauthnetController extends ControllerBase {
    * Thanks page.
    */
   public function thanks() {
-
+    return [
+      '#theme' => 'authnet_thanks_page'
+    ];
   }
 
 }

@@ -14,7 +14,6 @@ giveauthnet.settings:
   requirements:
     _permission: 'administer site configuration'
 
-
 giveauthnet.cancel:
   path: /giveauthnet/cancel
   defaults:
