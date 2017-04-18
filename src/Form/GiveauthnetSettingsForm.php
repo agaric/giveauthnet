@@ -46,10 +46,16 @@ class GiveauthnetSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('transaction_key'),
     );
 
-    $form['help_message'] = array(
+    $form['donate_message'] = array(
+      '#type' => 'textarea',
+      '#title' => $this->t('This message will be displayed in the donate page.'),
+      '#default_value' => $config->get('donate_message'),
+    );
+
+    $form['confirm_message'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('This message will be displayed above the donate button.'),
-      '#default_value' => $config->get('help_message'),
+      '#default_value' => $config->get('confirm_message'),
     );
 
     $form['cancel_message'] = array(
@@ -68,7 +74,7 @@ class GiveauthnetSettingsForm extends ConfigFormBase {
 
     $form['test_enviroment'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Redirect the user to a Sandbox enviroment, to make tests.'),
+      '#title' => $this->t('Use the Authorized.net Sandbox (for development)'),
       '#default_value' => $config->get('test_enviroment'),
     );
 
@@ -83,7 +89,8 @@ class GiveauthnetSettingsForm extends ConfigFormBase {
     $config = $this->config('giveauthnet.settings');
     $config->set('api_login_id', $form_state->getValue('api_login_id'))
       ->set('transaction_key', $form_state->getValue('transaction_key'))
-      ->set('help_message', $form_state->getValue('help_message'))
+      ->set('donate_message', $form_state->getValue('donate_message'))
+      ->set('confirm_message', $form_state->getValue('confirm_message'))
       ->set('cancel_message', $form_state->getValue('cancel_message'))
       ->set('thanks_message', $form_state->getValue('thanks_message'))
       ->set('test_enviroment', $form_state->getValue('test_enviroment'))

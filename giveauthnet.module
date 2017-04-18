@@ -117,7 +117,7 @@ function giveauthnet_theme($existing, $type, $theme, $path) {
  */
 function giveauthnet_preprocess_authnet_link_page(&$variables) {
   $config = \Drupal::config('giveauthnet.settings');
-  $variables['help_message'] = $config->get('help_message', '');
+  $variables['confirm_message'] = $config->get('confirm_message', '');
   $sandobox_url = "https://test.authorize.net/payment/payment";
   $production_url = "https://accept.authorize.net/payment/payment";
   $variables['authnet_url'] = $config->get('test_enviroment', 0) ? $sandobox_url : $production_url;

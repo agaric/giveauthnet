@@ -46,6 +46,13 @@ class DonateForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $this->config('giveauthnet.settings');
+
+    $form['donate_message'] = [
+      '#type' => 'markup',
+      '#markup' => $config->get('donate_message'),
+    ];
+
     $form['authorized_donation'] = [
       '#type' => 'fieldset',
       '#title' => ''

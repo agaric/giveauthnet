@@ -8,7 +8,10 @@ giveauthnet.settings:
     transaction_key:
       type: text
       label: Authorize.set Transaction key
-    help_message:
+    donate_message:
+      type: text
+      label: The message displayed in the donate page.
+    confirm_message:
       type: text
       label: Message displayed above the donation button.
     cancel_message:

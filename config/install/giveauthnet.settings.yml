@@ -1,6 +1,7 @@
 api_login_id: ''
 transaction_key: ''
-help_message: 'The donate button will take you to the authorized page and after your donation will be redirected back to this site.'
-cancel_message: 'Thanks for your interest in donate to Portside'
+donate_message: 'Thanks for your donation, please enter the donation amount'
+confirm_message: 'The donate button will take you to the authorized.net page and  once the donation be made you will be redirected back to this site.'
+cancel_message: 'Thanks for your interest in donate'
 thanks_message: 'Thanks for your donation!'
 test_enviroment: 0
