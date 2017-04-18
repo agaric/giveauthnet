@@ -1,0 +1,5 @@
+giveauthnet.settings:
+  title: 'Give Authorized.net Settings'
+  description: 'Manage the Authorized.net integration'
+  parent: system.admin_config_services
+  route_name: giveauthnet.settings

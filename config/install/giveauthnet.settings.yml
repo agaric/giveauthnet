@@ -1,2 +1,4 @@
 api_login_id: ''
 transaction_key: ''
+cancel_message: 'Thanks for your interest in donate to Portside'
+thanks_message: 'Thanks for your donation!'

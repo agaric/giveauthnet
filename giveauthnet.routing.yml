@@ -2,14 +2,31 @@ giveauthnet.site_page:
   path: /giveauthnet
   defaults:
     _title: 'Give'
-    _controller: '\Drupal\giveauthnet\Controller\GiveauthnetController::giveauthnetSitePage'
+    _controller: \Drupal\giveauthnet\Controller\GiveauthnetController::giveauthnetSitePage
   requirements:
-    _permission: 'access give forms'
+    _permission: 'access content'
 
 giveauthnet.settings:
   path: /admin/config/services/giveauthnet
   defaults:
-    _form: Drupal\giveauthnet\Form\giveauthnetSettingsForm
+    _form: \Drupal\giveauthnet\Form\giveauthnetSettingsForm
     _title: 'Authorize.net donation processing settings'
   requirements:
     _permission: 'administer site configuration'
+
+
+giveauthnet.cancel:
+  path: /giveauthnet/cancel
+  defaults:
+    _controller: \Drupal\giveauthnet\Controller\GiveauthnetController::cancel
+    _title: 'The donation was canceled'
+  requirements:
+    _permission: 'access content'
+
+giveauthnet.thanks:
+  path: /giveauthnet/thanks
+  defaults:
+    _controller: \Drupal\giveauthnet\Controller\GiveauthnetController::thanks
+    _title: 'Thanks for your donation'
+  requirements:
+    _permission: 'access content'

@@ -108,5 +108,19 @@ class GiveauthnetController extends ControllerBase {
     ];
   }
 
+  /**
+   * Cancel page.
+   */
+  public function cancel() {
+
+  }
+
+
+  /**
+   * Thanks page.
+   */
+  public function thanks() {
+
+  }
 
 }
