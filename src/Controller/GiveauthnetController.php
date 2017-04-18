@@ -55,10 +55,11 @@ class GiveauthnetController extends ControllerBase {
    */
   public function giveauthnetSitePage($give_form = NULL) {
     $config = $this->config('giveauthnet.settings');
+
     // Common setup for API credentials
     $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-    $merchantAuthentication->setName("");
-    $merchantAuthentication->setTransactionKey("");
+    $merchantAuthentication->setName($config->get('api_login_id'));
+    $merchantAuthentication->setTransactionKey($config->get('transaction_key'));
 
     //create a transaction
     $transactionRequestType = new AnetAPI\TransactionRequestType();

@@ -1,16 +1,15 @@
 giveauthnet.site_page:
-  path: '/giveauthnet'
+  path: /giveauthnet
   defaults:
     _title: 'Give'
     _controller: '\Drupal\giveauthnet\Controller\GiveauthnetController::giveauthnetSitePage'
   requirements:
     _permission: 'access give forms'
 
-#giveauthnet.settings:
-#  path: '/admin/config/services/giveauthnet'
-#  defaults:
-#    _form:  '\Drupal\giveauthnet\Form\GiveauthnetForm\GiveauthnetSettings'
-#    _title: 'Authorize.net (donation processing) settings'
-#  requirements:
-#    _permission: 'administer give'
-
+giveauthnet.settings:
+  path: /admin/config/services/giveauthnet
+  defaults:
+    _form: Drupal\giveauthnet\Form\giveauthnetSettingsForm
+    _title: 'Authorize.net donation processing settings'
+  requirements:
+    _permission: 'administer site configuration'

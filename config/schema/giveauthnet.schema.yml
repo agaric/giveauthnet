@@ -1,0 +1,10 @@
+giveauthnet.settings:
+  type: config_object
+  label: Give Authorized Settings
+  mapping:
+    api_login_id:
+      type: text
+      label: Authorize.net API login ID
+    transaction_key:
+      type: text
+      label: Authorize.set Transaction key
