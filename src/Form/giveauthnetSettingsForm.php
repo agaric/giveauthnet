@@ -46,6 +46,12 @@ class giveauthnetSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('transaction_key'),
     );
 
+    $form['help_message'] = array(
+      '#type' => 'textarea',
+      '#title' => $this->t('This message will be displayed above the donate button.'),
+      '#default_value' => $config->get('help_message'),
+    );
+
     $form['cancel_message'] = array(
       '#type' => 'textarea',
       '#title' => $this->t('This message will be displayed in the cancelation page.'),
@@ -71,6 +77,7 @@ class giveauthnetSettingsForm extends ConfigFormBase {
     $config = $this->config('giveauthnet.settings');
     $config->set('api_login_id', $form_state->getValue('api_login_id'))
       ->set('transaction_key', $form_state->getValue('transaction_key'))
+      ->set('help_message', $form_state->getValue('help_message'))
       ->set('cancel_message', $form_state->getValue('cancel_message'))
       ->set('thanks_message', $form_state->getValue('thanks_message'))
       ->save();

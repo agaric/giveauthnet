@@ -1,4 +1,6 @@
-<h1>Donate</h1>
+<div>
+    {{ help_message }}
+</div>
 
 <form id="send_hptoken" action="https://test.authorize.net/payment/payment" method="post" >
     <input type="hidden" name="token" value="{{ authnet_token }}" />
