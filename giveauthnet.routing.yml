@@ -1,15 +1,23 @@
-giveauthnet.site_page:
-  path: /giveauthnet
+giveauthnet.confirm:
+  path: /giveauthnet/confirm
   defaults:
-    _title: 'Give'
-    _controller: \Drupal\giveauthnet\Controller\GiveauthnetController::giveauthnetSitePage
+    _title: 'Confirm'
+    _controller: \Drupal\giveauthnet\Controller\GiveauthnetController::confirm
+  requirements:
+    _permission: 'access content'
+
+giveauthnet.donate:
+  path: /giveauthnet/donate
+  defaults:
+    _title: 'Donate'
+    _form: \Drupal\giveauthnet\Form\DonateForm
   requirements:
     _permission: 'access content'
 
 giveauthnet.settings:
   path: /admin/config/services/giveauthnet
   defaults:
-    _form: \Drupal\giveauthnet\Form\giveauthnetSettingsForm
+    _form: \Drupal\giveauthnet\Form\GiveauthnetSettingsForm
     _title: 'Authorize.net donation processing settings'
   requirements:
     _permission: 'administer site configuration'

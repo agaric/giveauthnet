@@ -5,7 +5,7 @@ namespace Drupal\giveauthnet\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
-class giveauthnetSettingsForm extends ConfigFormBase {
+class GiveauthnetSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}

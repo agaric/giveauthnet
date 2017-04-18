@@ -2,7 +2,11 @@
     {{ help_message }}
 </div>
 
+<fieldset>
+    Confirm that you want to donate: {{ amount }}
+</fieldset>
+
 <form id="send_hptoken" action="{{ authnet_url }}" method="post" >
     <input type="hidden" name="token" value="{{ authnet_token }}" />
-    <input type="submit" value="Donate">
+    <input type="submit" value="Confirm">
 </form>

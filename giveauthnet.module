@@ -105,7 +105,7 @@ function giveauthnet_replace_donation_tokens($message, \Drupal\give\DonationInte
 function giveauthnet_theme($existing, $type, $theme, $path) {
   return [
     'authnet_link_page' => [
-      'variables' => ['authnet_token' => NULL]
+      'variables' => ['authnet_token' => NULL, 'amount' => NULL]
     ],
     'authnet_cancel_page' => [],
     'authnet_thanks_page' => [],
