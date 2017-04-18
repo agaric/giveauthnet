@@ -96,14 +96,19 @@ class GiveauthnetController extends ControllerBase {
 
     //execute request
     $controller = new AnetController\GetHostedPaymentPageController($request);
-    $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+    $sandbox = $config->get('test_enviroment', 0);
+    if ($sandbox) {
+      $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+    }
+    else {
+      $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+    }
 
-    if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
-    {
+
+    if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") ) {
       $token = $response->getToken();
     }
-    else
-    {
+    else {
       $token = '';
       drupal_set_message("ERROR :  Failed to get hosted payment page token", 'error');
       $errorMessages = $response->getMessages()->getMessage();
