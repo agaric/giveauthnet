@@ -17,3 +17,6 @@ giveauthnet.settings:
     thanks_message:
       type: text
       label: Message displayed after the user donation.
+    test_enviroment:
+          type: boolean
+          label: Use the sandbox or the production url.

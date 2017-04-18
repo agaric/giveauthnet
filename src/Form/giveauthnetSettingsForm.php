@@ -66,6 +66,12 @@ class giveauthnetSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('thanks_message'),
     );
 
+    $form['test_enviroment'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Redirect the user to a Sandbox enviroment, to make tests.'),
+      '#default_value' => $config->get('test_enviroment'),
+    );
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -80,6 +86,7 @@ class giveauthnetSettingsForm extends ConfigFormBase {
       ->set('help_message', $form_state->getValue('help_message'))
       ->set('cancel_message', $form_state->getValue('cancel_message'))
       ->set('thanks_message', $form_state->getValue('thanks_message'))
+      ->set('test_enviroment', $form_state->getValue('test_enviroment'))
       ->save();
 
     parent::submitForm($form, $form_state);

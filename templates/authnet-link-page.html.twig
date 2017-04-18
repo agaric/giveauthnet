@@ -2,7 +2,7 @@
     {{ help_message }}
 </div>
 
-<form id="send_hptoken" action="https://test.authorize.net/payment/payment" method="post" >
+<form id="send_hptoken" action="{{ authnet_url }}" method="post" >
     <input type="hidden" name="token" value="{{ authnet_token }}" />
     <input type="submit" value="Donate">
 </form>

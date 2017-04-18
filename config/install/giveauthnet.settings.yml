@@ -3,3 +3,4 @@ transaction_key: ''
 help_message: 'The donate button will take you to the authorized page and after your donation will be redirected back to this site.'
 cancel_message: 'Thanks for your interest in donate to Portside'
 thanks_message: 'Thanks for your donation!'
+test_enviroment: 0
