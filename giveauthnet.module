@@ -8,16 +8,6 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Denotes that the donation is not completed.
- */
-const DONATION_NOT_COMPLETED = 0;
-
-/**
- * Denotes that the donation is completed.
- */
-const DONATION_COMPLETED = 1;
-
-/**
  * Implements hook_entity_extra_field_info().
  */
 function giveauthnet_entity_extra_field_info() {
