@@ -82,6 +82,9 @@ class GiveauthnetController extends ControllerBase {
     $setting2->setSettingValue("{\"show\": false}");
     $setting3 = new AnetAPI\SettingType();
     $setting3->setSettingName("hostedPaymentReturnOptions");
+    $setting4 = new AnetApI\SettingType();
+    $setting4->setSettingName("hostedPaymentCustomerOptions");
+    $setting4->setSettingValue(json_encode(["showEmail" => true, "requiredEmail" => true]));
     $thanks_url = Url::fromRoute('giveauthnet.thanks');
     $thanks_url->setAbsolute();
     $cancel_url = Url::fromRoute('giveauthnet.cancel');
@@ -89,7 +92,7 @@ class GiveauthnetController extends ControllerBase {
     $settings = [
       'url' => $thanks_url->toString(),
       'cancelUrl' => $cancel_url->toString(),
-      'showReceipt' => true
+      'showReceipt' => true,
     ];
     $setting3->setSettingValue(json_encode($settings));
     // Build transaction request
@@ -99,6 +102,7 @@ class GiveauthnetController extends ControllerBase {
     $request->addToHostedPaymentSettings($setting1);
     $request->addToHostedPaymentSettings($setting2);
     $request->addToHostedPaymentSettings($setting3);
+    $request->addToHostedPaymentSettings($setting4);
 
     //execute request
     $controller = new AnetController\GetHostedPaymentPageController($request);
