@@ -23,6 +23,10 @@ class DonateForm extends FormBase {
    * @param \Drupal\user\PrivateTempStoreFactory $temp_store_factory
    */
   public function __construct(PrivateTempStoreFactory $temp_store_factory) {
+    // By default the session is only initialized for logged in users, so we
+    // need to save something in it in order to initialize for anonymou users.
+    // https://drupal.stackexchange.com/a/163156/4362
+    $_SESSION['is_anonymous_user'] = 1;
     $this->tempStore = $temp_store_factory->get('giveauthnet');
   }
 
