@@ -62,11 +62,12 @@ class DonateForm extends FormBase {
       '#title' => ''
     ];
 
+    // @todo Make the default value configurable.
     $form['authorized_donation']['amount'] = [
       '#type' => 'number',
       '#title' => $this->t('Amount'),
       '#field_prefix' => '$',
-      '#default_value' => "30.00",
+      '#default_value' => "",
     ];
 
     $form['submit'] = [
