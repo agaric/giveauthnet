@@ -75,6 +75,7 @@ class DonateForm extends FormBase {
       '#value' => $this->t('Donate'),
       '#button_type' => 'primary',
     ];
+    $form['#cache']['max-age'] = 0;
     return $form;
   }
 
