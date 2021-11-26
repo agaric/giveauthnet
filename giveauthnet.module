@@ -12,7 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function giveauthnet_entity_extra_field_info() {
   $fields = array();
-  foreach (array_keys(entity_get_bundles('give_donation')) as $bundle) {
+  foreach (array_keys(\Drupal::service('entity_type.bundle.info')->getBundleInfo('give_donation')) as $bundle) {
     $fields['give_donation'][$bundle]['form']['name'] = array(
       'label' => t('Donor name'),
       'description' => t('Text'),
