@@ -1,6 +1,5 @@
 name: Give Authorize.net
 type: module
 description: Gives people a way to donate money via Authorize.
-core_version_requirement: ^8 || ^9
-core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
 package: Give Authorize.net
